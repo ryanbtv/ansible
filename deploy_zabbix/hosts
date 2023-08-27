@@ -1,0 +1,23 @@
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+---
+zabbix_hosts:
+  hosts:
+    ff-nms.lan:
+  vars:
+    ansible_user: ryanb
+    ansible_ssh_pass: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        34343764353966333534303033616137643164396431633437656438623337613066366334626261
+        6262636334323232313431383765333032336463363235370a653264636334636366303039336136
+        32653434623037313536393333613562656237343063393765663033623938356531643139653531
+        3236303363306363390a346136633138356535336335323030306566613234646533653832663764
+        6664

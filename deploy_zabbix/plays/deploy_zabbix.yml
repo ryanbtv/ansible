@@ -1,0 +1,37 @@
+---
+- hosts: zabbix_hosts
+  gather_facts: true
+  become: true
+
+  roles: 
+    - role: geerlingguy.mysql
+    - role: geerlingguy.apache
+    - role: geerlingguy.php
+    - role: community.zabbix.zabbix_server
+      zabbix_server_database: mysql
+      zabbix_db_type_long: mysql
+      zabbix_server_dbport: 3306
+      zabbix_server_mysql_login_user: root
+      zabbix_server_mysql_login_password: root
+    - role: community.zabbix.zabbix_web
+      zabbix_api_server_url: ff-nms.lan
+      zabbix_api_server_host: ff-nms.lan
+      zabbix_server_database: mysql
+      zabbix_db_type_long: mysql
+      zabbix_server_dbport: 3306
+
+  tasks:
+    - name: Delete apache2 default confs
+      ansible.builtin.file:
+        path: "{{item}}"
+        state: absent
+      loop:
+        - /etc/apache2/sites-enabled/000-default.conf
+        - /etc/apache2/sites-enabled/vhosts.conf
+      register: apacheconfs
+    
+    - name: Reload service apache2 if needed
+      ansible.builtin.systemd:
+        name: apache2.service
+        state: restarted
+      when: apacheconfs.changed
