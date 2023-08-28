@@ -19,6 +19,10 @@
       zabbix_server_database: mysql
       zabbix_db_type_long: mysql
       zabbix_server_dbport: 3306
+    - role: community.zabbix.zabbix_agent
+      zabbix_agent2: true
+      zabbix_agent2_server: ff-nms.lan
+      zabbix_agent2_serveractive: ff-nms.lan
 
   tasks:
     - name: Delete apache2 default confs
