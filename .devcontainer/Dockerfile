@@ -13,7 +13,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
      && apt-get -y install --no-install-recommends sshpass
 
 # Set GITHUB_WORKSPACE since this devcontainer isn't run in GitHub
-ENV ANSIBLE_HOME=/workspaces/homelab/ansible
+ENV ANSIBLE_HOME=/workspaces/ansible
 
 # Install Ansible requirements.yml
 #COPY . /ansible
